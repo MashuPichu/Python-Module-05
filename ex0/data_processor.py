@@ -6,7 +6,7 @@
 #  By: klucchin <klucchin@student.42.fr>         +#+  +:+       +#+         #
 #                                              +#+#+#+#+#+   +#+            #
 #  Created: 2026/04/04 16:17:06 by klucchin        #+#    #+#               #
-#  Updated: 2026/04/05 20:14:33 by klucchin        ###   ########.fr        #
+#  Updated: 2026/04/05 22:56:02 by klucchin        ###   ########.fr        #
 #                                                                           #
 # ************************************************************************* #
 
@@ -15,7 +15,7 @@ from abc import ABC, abstractmethod
 
 
 class DataProcessor(ABC):
-    def __init__(self):
+    def __init__(self) -> None:
         self._data: List[str] = []
 
     @abstractmethod
@@ -73,7 +73,7 @@ class TextProcessor(DataProcessor):
 
 class LogProcessor(DataProcessor):
     def validate(self, data: Any) -> bool:
-        def is_valid_log(d):
+        def is_valid_log(d: dict[str, str]) -> bool:
             return (
                 isinstance(d, dict)
                 and all(isinstance(i, str) for i in d.keys())
@@ -90,7 +90,7 @@ class LogProcessor(DataProcessor):
         if not self.validate(data):
             raise Exception("Improper log data")
 
-        def format_log(d):
+        def format_log(d: dict[str, str]) -> str:
             return f"{d.get('log_level', '')}: {d.get('log_message', '')}"
 
         if isinstance(data, list):
